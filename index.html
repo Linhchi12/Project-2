@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Australia — Live Performance & Spotify (2024)</title>
+
+  <!-- Vega libs -->
+  <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+
+  <style>
+    body{font:14px system-ui,-apple-system,Segoe UI,Roboto,sans-serif;margin:20px}
+    h1{margin:0 0 6px}
+    h2{margin:22px 0 8px}
+    .subtitle{color:#666;margin:0 0 18px}
+    .grid{display:grid;grid-template-columns:1fr;gap:28px}
+    @media (min-width:1100px){.grid{grid-template-columns:1fr 1fr}.span-2{grid-column:1/-1}}
+    .panel{min-height:420px}
+  </style>
+</head>
+<body>
+  <h1>Where should music artists book shows in Australia right now?</h1>
+  <p class="subtitle">Map from LPA state totals; charts from Spotify (AU filter). Hover for details.</p>
+
+  <section class="grid">
+    <!-- 1) MAP -->
+    <div class="span-2">
+      <h2>Spend per person by State on live performances</h2>
+      <div id="map-lpa" class="panel"></div>
+    </div>
+
+    <!-- 2) Spotify Top Artists -->
+    <div>
+      <h2>Top Artists in Australia — Streams (Last 30 Days)</h2>
+      <div id="chart-au-top-artists" class="panel"></div>
+    </div>
+
+    <!-- 3) Spotify Genre (Grouped by Platform) -->
+    <div>
+      <h2>Australia — 30-day Streams by Genre (Grouped: Free vs Premium)</h2>
+      <div id="chart-au-genre-grouped" class="panel"></div>
+    </div>
+  </section>
+
+  <!-- Import modules and render charts -->
+  <script type="module">
+    import { lpaStateChoroplethSpec } from './charts/lpaStateChoropleth.js';
+    import { spotifyAuTopArtistsSpec } from './charts/spotifyAuTopArtists.js';
+    import { spotifyAuGenreStreamsGroupedSpec } from './charts/spotifyAuGenreStreamsGrouped.js';
+
+    vegaEmbed('#map-lpa', lpaStateChoroplethSpec, { actions:false })
+      .catch(err => console.error('Map error:', err));
+
+    vegaEmbed('#chart-au-top-artists', spotifyAuTopArtistsSpec, { actions:false })
+      .catch(err => console.error('Top artists error:', err));
+
+    vegaEmbed('#chart-au-genre-grouped', spotifyAuGenreStreamsGroupedSpec, { actions:false })
+      .catch(err => console.error('Genre grouped error:', err));
+  </script>
+
+  <!--
+    Expected files:
+      charts/lpaStateChoropleth.js
+      charts/spotifyAuTopArtists.js
+      charts/spotifyAuGenreStreamsGrouped.js
+      data/states_fixed.json
+      data/LPA_2024_state_totals.csv
+      data/Cleaned_Spotify_2024_Global_Streaming_Data.csv
+  -->
+</body>
+</html>
