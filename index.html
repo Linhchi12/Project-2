@@ -45,19 +45,15 @@
 
   <!-- Import modules and render charts -->
   <script type="module">
-    import { lpaStateChoroplethSpec } from './charts/lpaStateChoropleth.js';
-    import { spotifyAuTopArtistsSpec } from './charts/spotifyAuTopArtists.js';
-    import { spotifyAuGenreStreamsGroupedSpec } from './charts/spotifyAuGenreStreamsGrouped.js';
+  import { lpaStateChoroplethSpec } from './lpaStateChoropleth.js';
+  import { spotifyAuTopArtistsSpec } from './spotifyAuTopArtists.js';
+  import { spotifyAuGenreStreamsGroupedSpec } from './spotifyAuGenreStreamsGrouped.js';
 
-    vegaEmbed('#map-lpa', lpaStateChoroplethSpec, { actions:false })
-      .catch(err => console.error('Map error:', err));
+  vegaEmbed('#map-lpa', lpaStateChoroplethSpec, { actions:false });
+  vegaEmbed('#chart-au-top-artists', spotifyAuTopArtistsSpec, { actions:false });
+  vegaEmbed('#chart-au-genre-grouped', spotifyAuGenreStreamsGroupedSpec, { actions:false });
+</script>
 
-    vegaEmbed('#chart-au-top-artists', spotifyAuTopArtistsSpec, { actions:false })
-      .catch(err => console.error('Top artists error:', err));
-
-    vegaEmbed('#chart-au-genre-grouped', spotifyAuGenreStreamsGroupedSpec, { actions:false })
-      .catch(err => console.error('Genre grouped error:', err));
-  </script>
 
   <!--
     Expected files:
